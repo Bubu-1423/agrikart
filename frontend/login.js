@@ -44,7 +44,7 @@ form.addEventListener('submit', async (e) => {
     if (isLoginMode) {
         // ================= LOGIN FLOW =================
         try {
-            const response = await fetch('http://localhost:8080/api/users/login', {
+            const response = await fetch(`${CONFIG.API_BASE_URL}/api/users/login`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ phoneNumber: phone, password: password })
@@ -81,7 +81,7 @@ form.addEventListener('submit', async (e) => {
         const newUser = { fullName, phoneNumber: phone, password, role };
 
         try {
-            const response = await fetch('http://localhost:8080/api/users/register', {
+            const response = await fetch(`${CONFIG.API_BASE_URL}/api/users/register`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(newUser)
