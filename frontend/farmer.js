@@ -66,7 +66,7 @@ productForm.addEventListener('submit', async (e) => {
     };
 
     try {
-        const response = await fetch('http://localhost:8080/api/products', {
+        const response = await fetch(`${CONFIG.API_BASE_URL}/api/products`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(newProduct)
@@ -94,7 +94,7 @@ async function fetchFarmerProducts() {
     const grid = document.getElementById('farmerProductGrid');
 
     try {
-        const response = await fetch('http://localhost:8080/api/products');
+        const response = await fetch(`${CONFIG.API_BASE_URL}/api/products`);
         const allProducts = await response.json();
 
         const myProducts = allProducts.filter(p => p.farmer && p.farmer.id === currentUser.id);
@@ -129,7 +129,7 @@ async function fetchIncomingOrders() {
     const badge = document.getElementById('pendingBadge');
 
     try {
-        const response = await fetch('http://localhost:8080/api/orders');
+        const response = await fetch(`${CONFIG.API_BASE_URL}/api/orders`);
         const allOrders = await response.json();
 
         // Sirf wahi orders nikalo jo is logged-in farmer ke product ke hain
