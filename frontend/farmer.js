@@ -185,9 +185,9 @@ async function fetchIncomingOrders() {
 // ====== STATUS UPDATE HANDLER ======
 async function updateOrderStatus(orderId, newStatus) {
     try {
-        const response = await fetch(`http://localhost:8080/api/orders/${orderId}/status?status=${newStatus}`, {
-            method: 'PUT'
-        });
+        const response = await fetch(`${CONFIG.API_BASE_URL}/api/orders/${orderId}/status?status=${newStatus}`, {
+    method: 'PUT'
+})
 
         if (response.ok) {
             // UI refresh
