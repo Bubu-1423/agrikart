@@ -25,7 +25,7 @@ async function fetchMyOrders() {
     const container = document.getElementById('ordersContainer');
     
     try {
-        const response = await fetch('http://localhost:8080/api/orders');
+        const response = await fetch(`${CONFIG.API_BASE_URL}/api/orders/...`)
         const allOrders = await response.json();
         
         // Filter orders only for the current user ID
