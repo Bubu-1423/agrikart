@@ -18,32 +18,82 @@ public class UserController {
     @Autowired
     private UserRepository userRepository;
 
-    // Login Request receive karne ke liye format
+    // Login Request class - phone aur phoneNumber dono support karega
     public static class LoginRequest {
-        public String phoneNumber;
-        public String password;
+        private String phoneNumber;
+        private String phone;
+        private String password;
+
+        public LoginRequest() {}
+
+        public String getPhoneNumber() {
+            return (phoneNumber != null && !phoneNumber.trim().isEmpty()) ? phoneNumber : phone;
+        }
+
+        public void setPhoneNumber(String phoneNumber) {
+            this.phoneNumber = phoneNumber;
+        }
+
+        public String getPhone() {
+            return phone;
+        }
+
+        public void setPhone(String phone) {
+            this.phone = phone;
+        }
+
+        public String getPassword() {
+            return password;
+        }
+
+        public void setPassword(String password) {
+            this.password = password;
+        }
     }
 
     // 1. Login API
     @PostMapping("/login")
     public ResponseEntity<?> loginUser(@RequestBody LoginRequest request) {
-        Optional<User> userOpt = userRepository.findByPhoneNumber(request.phoneNumber);
-        
-        if (userOpt.isPresent()) {
-            User user = userOpt.get();
-            // Password match check
-            if (user.getPassword() != null && user.getPassword().equals(request.password)) {
-                return ResponseEntity.ok(user); // Login Success
+        try {
+            String targetPhone = request.getPhoneNumber();
+            if (targetPhone == null || targetPhone.trim().isEmpty()) {
+                return ResponseEntity.badRequest().body("Phone number is required");
             }
+
+            Optional<User> userOpt = userRepository.findByPhoneNumber(targetPhone);
+            
+            if (userOpt.isPresent()) {
+                User user = userOpt.get();
+                if (user.getPassword() != null && user.getPassword().equals(request.getPassword())) {
+                    return ResponseEntity.ok(user); // Login Success
+                }
+            }
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Invalid Phone Number or Password");
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body("Login error: " + e.getMessage());
         }
-        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Invalid Phone Number or Password");
     }
 
     // 2. Signup API
     @PostMapping("/register")
-    public ResponseEntity<User> registerUser(@RequestBody User user) {
-        User savedUser = userRepository.save(user);
-        return ResponseEntity.ok(savedUser);
+    public ResponseEntity<?> registerUser(@RequestBody User user) {
+        try {
+            // Check if phone number already registered
+            if (user.getPhoneNumber() != null) {
+                Optional<User> existing = userRepository.findByPhoneNumber(user.getPhoneNumber());
+                if (existing.isPresent()) {
+                    return ResponseEntity.badRequest().body("Phone number already registered. Please login.");
+                }
+            }
+            User savedUser = userRepository.save(user);
+            return ResponseEntity.ok(savedUser);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body("Registration error: " + e.getMessage());
+        }
     }
 
     // 3. Get all users
