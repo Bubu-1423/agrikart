@@ -25,11 +25,17 @@ async function fetchMyOrders() {
     const container = document.getElementById('ordersContainer');
     
     try {
-        const response = await fetch(`${CONFIG.API_BASE_URL}/api/orders/...`)
+        // Yahan se '/...' hata kar sirf '/api/orders' rakha hai
+        const response = await fetch(`${CONFIG.API_BASE_URL}/api/orders`);
+        
+        if (!response.ok) {
+            throw new Error(`Server returned ${response.status}`);
+        }
+
         const allOrders = await response.json();
         
         // Filter orders only for the current user ID
-        const myOrders = allOrders.filter(order => order.customer.id === currentUser.id);
+        const myOrders = allOrders.filter(order => order.customer && order.customer.id === currentUser.id);
         
         container.innerHTML = '';
 
@@ -53,11 +59,11 @@ async function fetchMyOrders() {
                     <span class="status-badge status-${order.status}">${order.status}</span>
                 </div>
                 <div class="order-details">
-                    <h3>${order.product.productName}</h3>
-                    <p style="color: var(--text-muted);">👨‍🌾 Farmer: ${order.product.farmer.fullName}</p>
+                    <h3>${order.product ? order.product.productName : 'Product'}</h3>
+                    <p style="color: var(--text-muted);">👨‍🌾 Farmer: ${order.product && order.product.farmer ? order.product.farmer.fullName : 'Farmer'}</p>
                     <p style="color: var(--text-muted);">📅 ${date}</p>
                     <p>Quantity: ${order.quantity} kg</p>
-                    <div class="order-total">Total: ₹${order.totalPrice.toFixed(2)}</div>
+                    <div class="order-total">Total: ₹${order.totalPrice ? order.totalPrice.toFixed(2) : '0.00'}</div>
                 </div>
             `;
             container.appendChild(card);
