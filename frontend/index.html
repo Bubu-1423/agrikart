@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AgriKart - Premium Marketplace</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Premium Glass Navbar -->
+    <nav class="navbar">
+        <div class="logo">Agri<span>Kart.</span></div>
+        <div class="nav-links">
+            <a href="index.html" class="active">Market</a>
+            <a href="orders.html">My Orders</a>
+            <a href="login.html">Login</a>
+            <div class="lang-bar">
+                <button class="lang-btn active">EN</button>
+                <button class="lang-btn">HI</button>
+                <button class="lang-btn">OD</button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Animated Hero Section -->
+    <header class="hero">
+        <div class="hero-content">
+            <h1 class="fade-in-up">Fresh From The <span>Smart Farm</span></h1>
+            <p class="fade-in-up delay-1">Premium organic produce directly to your doorstep.</p>
+            <div class="search-box fade-in-up delay-2">
+                <input type="text" id="searchBar" placeholder="Search for grains, vegetables, farmers...">
+            </div>
+        </div>
+    </header>
+
+    <!-- Dynamic Product Grid -->
+    <main class="container">
+        <div class="section-header">
+            <h2>Live Stock</h2>
+            <div class="live-indicator"><span></span> Syncing with Farms</div>
+        </div>
+        
+        <!-- API se data yahan aayega -->
+        <div class="product-grid" id="productGrid"></div> 
+    </main>
+
+    <!-- Minimalist Footer -->
+    <footer>
+        <div class="footer-content">
+            <h2>Agri<span>Kart.</span></h2>
+            <p>Empowering Farmers, Delivering Quality.</p>
+            <p class="copyright">&copy; 2026 AgriKart Project. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <!-- Premium Razorpay-Style Payment Modal -->
+    <div id="paymentModal" class="payment-overlay" style="display: none;">
+        <div class="payment-box fade-in-up">
+            <div class="payment-header">
+                <h3>Agri<span>Kart.</span> Pay</h3>
+                <button id="closeModal" class="close-btn">&times;</button>
+            </div>
+            <div class="payment-body">
+                <p class="order-id">Total Amount due for Order</p>
+                <h2 class="amount">₹<span id="modalAmount">0.00</span></h2>
+                
+                <div class="payment-methods">
+                    <label class="pay-method">
+                        <input type="radio" name="payMethod" value="UPI" checked> UPI / QR Code (GPay, PhonePe)
+                    </label>
+                    <label class="pay-method">
+                        <input type="radio" name="payMethod" value="CARD"> Credit / Debit Card
+                    </label>
+                    <label class="pay-method">
+                        <input type="radio" name="payMethod" value="NETBANKING"> Net Banking
+                    </label>
+                </div>
+
+                <button id="processPaymentBtn" class="pay-btn">
+                    Secure Pay ₹<span id="btnAmount">0.00</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script src="config.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>

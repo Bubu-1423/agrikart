@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AgriKart - Farmer Dashboard</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: 360px 1fr;
+            gap: 25px;
+            margin-top: 30px;
+        }
+
+        .panel-box {
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            backdrop-filter: blur(12px);
+            border-radius: 16px;
+            padding: 24px;
+        }
+
+        .form-group {
+            margin-bottom: 16px;
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        .form-group label {
+            font-size: 13px;
+            color: var(--text-muted);
+            font-weight: 500;
+        }
+
+        .form-group input, .form-group textarea {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid var(--glass-border);
+            border-radius: 8px;
+            padding: 10px 14px;
+            color: #fff;
+            font-size: 14px;
+            outline: none;
+            transition: 0.3s;
+        }
+
+        .form-group input:focus, .form-group textarea:focus {
+            border-color: var(--neon-green);
+            box-shadow: 0 0 10px var(--neon-glow);
+        }
+
+        .form-group textarea {
+            resize: none;
+            height: 75px;
+        }
+
+        .submit-btn {
+            width: 100%;
+            padding: 12px;
+            background: var(--neon-green);
+            color: var(--bg-dark);
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 700;
+            cursor: pointer;
+            margin-top: 10px;
+            transition: 0.3s;
+        }
+
+        .submit-btn:hover {
+            box-shadow: 0 0 20px var(--neon-glow);
+            transform: translateY(-2px);
+        }
+
+        /* Dashboard Tabs */
+        .tab-bar {
+            display: flex;
+            gap: 12px;
+            margin-bottom: 20px;
+            border-bottom: 1px solid var(--glass-border);
+            padding-bottom: 12px;
+        }
+
+        .tab-btn {
+            background: none;
+            border: 1px solid var(--glass-border);
+            color: var(--text-muted);
+            padding: 8px 18px;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .tab-btn.active {
+            background: rgba(0, 230, 118, 0.15);
+            border-color: var(--neon-green);
+            color: var(--neon-green);
+            box-shadow: 0 0 10px var(--neon-glow);
+        }
+
+        /* Incoming Order Card Specifics */
+        .incoming-order-card {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid var(--glass-border);
+            border-left: 4px solid var(--neon-green);
+            border-radius: 12px;
+            padding: 16px;
+            margin-bottom: 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .order-info h4 { font-size: 16px; margin-bottom: 4px; }
+        .order-info p { font-size: 13px; color: var(--text-muted); margin: 3px 0; }
+        
+        .action-container {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+            gap: 8px;
+        }
+
+        .status-action-btn {
+            padding: 8px 14px;
+            border-radius: 6px;
+            font-size: 13px;
+            font-weight: 600;
+            cursor: pointer;
+            border: none;
+            transition: 0.3s;
+        }
+
+        .btn-ship {
+            background: #2196f3;
+            color: white;
+        }
+
+        .btn-deliver {
+            background: var(--neon-green);
+            color: var(--bg-dark);
+        }
+
+        .status-action-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 0 12px rgba(255, 255, 255, 0.2);
+        }
+
+        @media (max-width: 900px) {
+            .dashboard-grid { grid-template-columns: 1fr; }
+            .incoming-order-card { flex-direction: column; align-items: flex-start; }
+            .action-container { align-items: flex-start; width: 100%; }
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="logo">Agri<span>Kart.</span></div>
+        <div class="nav-links">
+            <a href="index.html">Market</a>
+            <a href="farmer.html" class="active">Farmer Studio</a>
+            <a href="#" id="profileLink">Profile</a>
+        </div>
+    </nav>
+
+    <main class="container" style="margin-top: 90px;">
+        <div class="section-header">
+            <h2>Farmer <span>Control Hub</span></h2>
+            <p style="color: var(--text-muted); font-size: 14px; margin-top: 5px;">Manage harvests and fulfill customer purchases</p>
+        </div>
+
+        <div class="dashboard-grid">
+            <!-- Left Side: Add Product Form -->
+            <div class="panel-box">
+                <h3 style="margin-bottom: 18px; font-size: 18px;">List Fresh <span>Produce</span></h3>
+                <form id="addProductForm">
+                    <div class="form-group">
+                        <label for="cropName">Crop / Produce Name</label>
+                        <input type="text" id="cropName" placeholder="e.g., Sharbati Gehu" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="cropPrice">Price per Kg (₹)</label>
+                        <input type="number" id="cropPrice" step="0.5" placeholder="e.g., 45" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="cropStock">Total Harvest Quantity (Kg)</label>
+                        <input type="number" id="cropStock" placeholder="e.g., 500" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="cropDesc">Harvest Description</label>
+                        <textarea id="cropDesc" placeholder="e.g., Organically grown, 100% natural harvest." required></textarea>
+                    </div>
+
+                    <button type="submit" id="addBtn" class="submit-btn">Publish to Market</button>
+                </form>
+            </div>
+
+            <!-- Right Side: Dual-view Dashboard (Crops vs Orders) -->
+            <div class="panel-box">
+                <div class="tab-bar">
+                    <button class="tab-btn active" id="tabCrops" onclick="switchTab('crops')">Active Harvests</button>
+                    <button class="tab-btn" id="tabOrders" onclick="switchTab('orders')">Customer Orders <span id="pendingBadge" style="color: #ffc107;">(0)</span></button>
+                </div>
+
+                <!-- Tab 1: Farmer Products View -->
+                <div id="cropsView">
+                    <div class="product-grid" id="farmerProductGrid" style="margin-top: 0;">
+                        <p style="color: var(--text-muted);">Fetching your listed harvests...</p>
+                    </div>
+                </div>
+
+                <!-- Tab 2: Incoming Orders View -->
+                <div id="ordersView" style="display: none;">
+                    <div id="incomingOrdersContainer">
+                        <p style="color: var(--text-muted);">Fetching orders for your crops...</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script src="config.js"></script>
+    <script src="farmer.js"></script>
+</body>
+</html>

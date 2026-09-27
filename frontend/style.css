@@ -1,0 +1,323 @@
+:root {
+    --bg-dark: #0a0a0a;
+    --surface-dark: #121212;
+    --glass-bg: rgba(255, 255, 255, 0.03);
+    --glass-border: rgba(255, 255, 255, 0.08);
+    --neon-green: #00e676;
+    --neon-glow: rgba(0, 230, 118, 0.3);
+    --text-main: #ffffff;
+    --text-muted: #888888;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', sans-serif;
+}
+
+body {
+    background-color: var(--bg-dark);
+    color: var(--text-main);
+    overflow-x: hidden;
+}
+
+/* Glass Navbar */
+.navbar {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    padding: 20px 5%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: rgba(10, 10, 10, 0.8);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--glass-border);
+    z-index: 1000;
+}
+
+.logo {
+    font-size: 24px;
+    font-weight: bold;
+    letter-spacing: 1px;
+}
+
+.logo span { color: var(--neon-green); }
+
+.nav-links {
+    display: flex;
+    align-items: center;
+    gap: 30px;
+}
+
+.nav-links a {
+    color: var(--text-muted);
+    text-decoration: none;
+    font-weight: 500;
+    transition: 0.3s;
+}
+
+.nav-links a:hover, .nav-links a.active {
+    color: var(--neon-green);
+}
+
+.lang-bar { display: flex; gap: 8px; }
+.lang-btn {
+    background: transparent;
+    border: 1px solid var(--glass-border);
+    color: var(--text-muted);
+    padding: 4px 8px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 12px;
+    transition: 0.3s;
+}
+.lang-btn.active, .lang-btn:hover {
+    color: var(--neon-green);
+    border-color: var(--neon-green);
+}
+
+/* Hero Section */
+.hero {
+    height: 60vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    background: radial-gradient(circle at center, #1a2a20 0%, var(--bg-dark) 70%);
+    padding: 0 20px;
+    margin-top: 50px;
+}
+
+.hero h1 { font-size: 48px; margin-bottom: 15px; }
+.hero h1 span { color: var(--neon-green); }
+.hero p { color: var(--text-muted); font-size: 18px; margin-bottom: 30px; }
+
+.search-box input {
+    width: 100%;
+    max-width: 500px;
+    padding: 15px 25px;
+    border-radius: 30px;
+    border: 1px solid var(--glass-border);
+    background: var(--glass-bg);
+    color: white;
+    font-size: 16px;
+    outline: none;
+    transition: 0.3s;
+}
+
+.search-box input:focus {
+    border-color: var(--neon-green);
+    box-shadow: 0 0 20px var(--neon-glow);
+}
+
+/* Container & Grid */
+.container { padding: 50px 5%; }
+
+.section-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 40px;
+}
+
+.live-indicator {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: var(--neon-green);
+    font-size: 14px;
+}
+.live-indicator span {
+    width: 8px; height: 8px;
+    background: var(--neon-green);
+    border-radius: 50%;
+    animation: pulse 1.5s infinite;
+}
+
+.product-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 30px;
+}
+
+/* Glass Product Cards */
+.card {
+    background: var(--surface-dark);
+    border: 1px solid var(--glass-border);
+    border-radius: 16px;
+    padding: 25px;
+    transition: all 0.4s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.card:hover {
+    transform: translateY(-10px);
+    border-color: var(--neon-green);
+    box-shadow: 0 10px 30px var(--neon-glow);
+}
+
+.card h3 { font-size: 22px; margin-bottom: 10px; }
+.card .desc { color: var(--text-muted); font-size: 14px; margin-bottom: 20px; line-height: 1.5; }
+.card .price { font-size: 28px; font-weight: bold; color: var(--neon-green); margin-bottom: 5px; }
+.card .stock { font-size: 12px; color: var(--text-muted); margin-bottom: 20px; }
+.card .farmer { font-size: 13px; color: #aaa; margin-bottom: 20px; display: flex; align-items: center; gap: 5px;}
+
+.buy-btn {
+    width: 100%;
+    padding: 12px;
+    background: transparent;
+    border: 1px solid var(--neon-green);
+    color: var(--neon-green);
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.buy-btn:hover {
+    background: var(--neon-green);
+    color: var(--bg-dark);
+}
+
+/* Footer */
+footer {
+    text-align: center;
+    padding: 40px 20px;
+    border-top: 1px solid var(--glass-border);
+    background: var(--surface-dark);
+    margin-top: 60px;
+}
+footer h2 span { color: var(--neon-green); }
+footer p { color: var(--text-muted); margin-top: 10px; font-size: 14px; }
+
+/* Animations */
+@keyframes pulse { 0% { box-shadow: 0 0 0 0 var(--neon-glow); } 70% { box-shadow: 0 0 0 10px rgba(0,230,118,0); } 100% { box-shadow: 0 0 0 0 rgba(0,230,118,0); } }
+.fade-in-up { animation: fadeInUp 0.8s ease forwards; opacity: 0; transform: translateY(20px); }
+.delay-1 { animation-delay: 0.2s; }
+.delay-2 { animation-delay: 0.4s; }
+@keyframes fadeInUp { to { opacity: 1; transform: translateY(0); } }
+
+/* Razorpay Style Payment Modal */
+.payment-overlay {
+    position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+    background: rgba(0, 0, 0, 0.85);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    display: flex; justify-content: center; align-items: center;
+    z-index: 9999;
+}
+
+.payment-box {
+    background: var(--surface-dark);
+    border: 1px solid var(--neon-green);
+    border-radius: 16px;
+    width: 90%; max-width: 420px;
+    padding: 25px;
+    box-shadow: 0 10px 40px rgba(0, 230, 118, 0.2);
+}
+
+.payment-header {
+    display: flex; justify-content: space-between; align-items: center;
+    border-bottom: 1px solid var(--glass-border);
+    padding-bottom: 15px; margin-bottom: 20px;
+}
+
+.payment-header h3 { font-size: 22px; }
+.payment-header h3 span { color: var(--neon-green); }
+.close-btn { background: none; border: none; color: white; font-size: 28px; cursor: pointer; transition: 0.3s; }
+.close-btn:hover { color: red; transform: scale(1.1); }
+
+.payment-body { text-align: center; }
+.order-id { color: var(--text-muted); font-size: 14px; margin-bottom: 5px; }
+.amount { font-size: 40px; color: var(--neon-green); margin-bottom: 25px; font-weight: 700; }
+
+.payment-methods { display: flex; flex-direction: column; gap: 12px; margin-bottom: 25px; text-align: left; }
+.pay-method {
+    background: var(--glass-bg); padding: 15px; border-radius: 8px;
+    border: 1px solid var(--glass-border); cursor: pointer; 
+    display: flex; gap: 12px; align-items: center; transition: 0.3s;
+    color: var(--text-muted); font-weight: 500;
+}
+.pay-method:hover, .pay-method:has(input:checked) {
+    border-color: var(--neon-green);
+    background: rgba(0, 230, 118, 0.1);
+    color: var(--text-main);
+}
+.pay-method input { accent-color: var(--neon-green); transform: scale(1.2); }
+
+.pay-btn {
+    width: 100%; padding: 15px; background: var(--neon-green); color: var(--bg-dark);
+    border: none; border-radius: 8px; font-size: 18px; font-weight: 700; 
+    cursor: pointer; transition: all 0.3s ease;
+}
+.pay-btn:hover { box-shadow: 0 0 25px var(--neon-glow); transform: translateY(-2px); }
+
+/* =========================================
+   MY ORDERS PAGE - SPECIFIC STYLES
+   ========================================= */
+
+/* Order card ke left side mein glowing line */
+.order-card { 
+    border-left: 4px solid var(--neon-green); 
+}
+
+.order-header { 
+    display: flex; 
+    justify-content: space-between; 
+    align-items: center;
+    margin-bottom: 15px; 
+    border-bottom: 1px solid var(--glass-border); 
+    padding-bottom: 10px; 
+}
+
+.order-id { 
+    color: var(--text-muted); 
+    font-size: 14px; 
+}
+
+/* Status Badges Base Design */
+.status-badge { 
+    padding: 6px 12px; 
+    border-radius: 20px; 
+    font-size: 12px; 
+    font-weight: 700; 
+    letter-spacing: 0.5px; 
+    box-shadow: 0 0 10px rgba(0,0,0,0.5);
+}
+
+/* Dynamic Status Colors (Pending = Yellow, Shipped = Blue, Delivered = Green) */
+.status-PENDING { 
+    background: rgba(255, 193, 7, 0.15); 
+    color: #ffc107; 
+    border: 1px solid #ffc107; 
+}
+
+.status-SHIPPED { 
+    background: rgba(33, 150, 243, 0.15); 
+    color: #2196f3; 
+    border: 1px solid #2196f3; 
+}
+
+.status-DELIVERED { 
+    background: rgba(0, 230, 118, 0.15); 
+    color: var(--neon-green); 
+    border: 1px solid var(--neon-green); 
+}
+
+.order-details p { 
+    margin: 8px 0; 
+    font-size: 15px; 
+    color: #e0e0e0;
+}
+
+.order-total { 
+    font-size: 22px; 
+    font-weight: 700; 
+    color: var(--neon-green); 
+    margin-top: 15px; 
+    text-shadow: 0 0 10px var(--neon-glow);
+}

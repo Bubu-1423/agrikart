@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AgriKart - Login</title>
+    <link rel="stylesheet" href="login.css">
+</head>
+<body>
+    <!-- Top Language Bar -->
+    <div class="lang-bar">
+        <button class="lang-btn active">EN</button>
+        <button class="lang-btn">HI</button>
+        <button class="lang-btn">OD</button>
+    </div>
+
+    <!-- Glassmorphism Login Box -->
+    <div class="login-container">
+        <div class="brand-header">
+            <h2>Agri<span>Kart.</span></h2>
+            <p>Welcome back to the smart farm</p>
+        </div>
+
+       <form id="loginForm">
+            <!-- Role Selector -->
+            <div class="role-toggle">
+                <input type="radio" id="farmer" name="role" value="FARMER" checked>
+                <label for="farmer">Farmer</label>
+                
+                <input type="radio" id="customer" name="role" value="CUSTOMER">
+                <label for="customer">Customer</label>
+            </div>
+
+            <!-- Naya Full Name Field (Sirf Signup par dikhega) -->
+            <div class="input-group" id="nameGroup" style="display: none;">
+                <input type="text" id="fullName" placeholder="Full Name" autocomplete="off">
+            </div>
+
+            <div class="input-group">
+                <input type="text" id="phone" placeholder="Phone Number" required autocomplete="off">
+            </div>
+            
+            <div class="input-group">
+                <input type="password" id="password" placeholder="Password" required>
+            </div>
+
+            <button type="submit" class="submit-btn" id="submitBtn">Secure Login</button>
+            
+            <!-- Dynamic Toggle Link -->
+            <div class="toggle-text">
+                <span id="toggleMsg">Don't have an account?</span> 
+                <a href="#" id="toggleLink">Sign Up</a>
+            </div>
+        </form>
+    </div>
+
+    <script src="config.js"></script>
+    <script src="login.js"></script>
+</body>
+</html>
